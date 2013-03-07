@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0">
-	<bean 
-	id="org.mondometeo.data.provider.HttpMeteoDataServer" 
-	class="org.mondometeo.data.provider.HttpMeteoDataServer"
-	init-method="doStart" 
-	destroy-method="doStop" >
-	  <argument name="localhost"/>
-	  <argument name="230979"/>
-	</bean>
-       
-    <ref-list interface="net.staniscia.odynodatabus.DataBusService">
-       <reference-listener ref="org.mondometeo.data.provider.HttpMeteoDataServer"
-         bind-method="setDataBusService" unbind-method="unsetDataBusService"/>
-    </ref-list>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd">
+ 
+    <!-- Declare your beans here -->
+
+    <reference id="dataBusServiceId" 
+               interface="net.staniscia.odynodatabus.DataBusService" 
+               availability="mandatory"
+               timeout="5000" />
+    
+    <reference id="log" 
+               interface="org.osgi.service.log.LogService" 
+               availability="mandatory" 
+               timeout="5000" />
+    
+    <bean 
+        id="org.mondometeo.data.provider.HttpMeteoDataServer" 
+        class="org.mondometeo.data.provider.HttpMeteoDataServer"
+        init-method="doStart" 
+        destroy-method="doStop" >
+        <argument value="localhost"/>
+        <argument value="230979"/>
+        <property name="dataBaseService" ref="dataBusServiceId"/>
+    </bean>
 </blueprint>

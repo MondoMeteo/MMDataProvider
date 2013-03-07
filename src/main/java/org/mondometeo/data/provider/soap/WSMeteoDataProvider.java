@@ -5,7 +5,6 @@ import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
-
 import org.mondometeo.data.provider.soap.exception.DataProviderException;
 import org.mondometeo.data.provider.soap.exception.WrongUrlException;
 

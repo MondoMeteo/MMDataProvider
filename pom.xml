@@ -1,42 +1,82 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    
-  <!-- ********************************************************** -->
-  <!-- PARENT POM -->
-  <!-- ********************************************************** -->
-  <parent>
-    <groupId>org.mondometeo</groupId>
-    <artifactId>MMParentPom</artifactId>
-    <version>0.1.0</version>
-  </parent>
-    <!-- **************************************************** -->
-    
-    
     <groupId>org.mondometeo</groupId>
     <artifactId>MMDataProvider</artifactId>
-    <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    
+    <packaging>bundle</packaging>
     <name>MMDataProvider</name>
-    <url>http://www.mondometeo.org</url>
-        
+    <description>MondoMeteo DataProvider</description>
+    <url>http://www.mondometeo.org</url>    
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <git.name>MMDataProvider</git.name>
+    </properties>    
+    <!-- 
+    PARENT POM 
+    -->
+    <parent>
+        <groupId>org.mondometeo</groupId>
+        <artifactId>MMParentPom</artifactId>
+        <version>0.1.0</version>
+    </parent>
+    <!-- 
+    Artefact Repository
+    -->  
+    <repositories>
+        <repository>
+            <id>MM-repository-release</id>
+            <url>http://www.mondometeo.org/mvn-repository/release</url>
+        </repository>
+        <repository>
+            <id>MM-repository-snapshot</id>
+            <url>http://www.mondometeo.org/mvn-repository/snapshot</url>
+        </repository>
+    </repositories>
+    <!-- 
+    Code and Issue  Repository
+    -->    
+    <scm>
+        <connection>scm:git:git://github.com/MondoMeteo/${git.name}.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/MondoMeteo/${git.name}.git</developerConnection>
+    </scm>
+    <issueManagement>
+        <system>GitHub Issue Tracking</system>
+        <url>https://github.com/MondoMeteo/${git.name}/issues</url>
+    </issueManagement>
+    <!-- 
+    Standard POM INFO
+    -->    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>*</Export-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <dependencies>
         <dependency>
             <groupId>org.mondometeo</groupId>
             <artifactId>MMCommon</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <type>jar</type>
+            <version>1.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
-    
         <dependency>
             <groupId>net.staniscia.as</groupId>
             <artifactId>odyno-databus-api</artifactId>
-            <version>0.1.0</version>
-            <type>bundle</type>
+            <version>0.1.1</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
-    
 </project>

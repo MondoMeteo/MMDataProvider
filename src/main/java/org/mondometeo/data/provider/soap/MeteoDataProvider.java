@@ -21,13 +21,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import javax.xml.ws.WebServiceProvider;
-
 import net.staniscia.odynodatabus.Publisher;
 import net.staniscia.odynodatabus.exceptions.PublishException;
 import net.staniscia.odynodatabus.msg.SerializableMessage;
-
 import org.mondometeo.common.MeteoFrame;
 import org.mondometeo.common.MeteoFrameFactory;
 import org.mondometeo.data.provider.soap.exception.DataProviderException;
@@ -40,7 +36,7 @@ import org.mondometeo.data.provider.soap.exception.WrongUrlException;
 
 public class MeteoDataProvider {
 
-	private Publisher<MeteoFrame> env;
+	private Publisher env;
 
 	/*
 	 * (non-Javadoc)
@@ -112,20 +108,17 @@ public class MeteoDataProvider {
 
 		if (env != null) {
 			try {
-
-				env.publish(new SerializableMessage<MeteoFrame>(objToSend));
+				env.publish(SerializableMessage.make(objToSend));
 			} catch (PublishException e) {
 				throw new DataProviderException("Error on publish the data", e);
 			}
 		} else {
 			throw new DataProviderException("NO Pubblisher ");
 		}
-
 		return true;
-
 	}
 
-	public void setDataService(Publisher<MeteoFrame> env) {
+	public void setDataService(Publisher env) {
 		this.env = env;
 	}
 
